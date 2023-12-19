@@ -13,3 +13,15 @@
     background-size: cover;
     height: 115vh;  
 }
+
+@media only screen and (max-width: 200px) {
+    .fondo, .fondo2 {
+        height: 50vh;  /* Ajusta la altura para dispositivos móviles */
+    }
+}
+
+@media only screen and (max-height: 200px) {
+    .fondo, .fondo2 {
+        height: 30vh;  /* Ajuste específico para alturas más pequeñas */
+    }
+}
