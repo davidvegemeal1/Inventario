@@ -19,16 +19,9 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Ruta del sistema de archivos donde se almacenarán los archivos estáticos recopilados
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Otros ajustes relacionados con archivos estáticos (opcional)
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 
 host = os.getenv('AZURE_MYSQL_HOST')
