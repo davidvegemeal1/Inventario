@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block titulo %} Interfaz administrador {% endblock %}
 
 {% block content %}
-
 
 <div class="card">
 
@@ -26,10 +23,12 @@
             <input type="submit" class="btn btn-dark"  value="Filtrar">
             <a name="" id="" class="btn btn-secondary" href="{% url 'principal' %}" role="button">Regresar a tabla general</a>
         </form>
-
     </div>
+    
+ 
     <div class="card-body">
         <h4 class="card-title">Escaneo</h4>
+        <div class="table-responsive">
             <table class="table">
                 {% if inventario %}
                 <thead>
@@ -103,7 +102,9 @@
                     {% endif %}
                 </tbody>
             </table>
+        </div>
     </div>
+    
     <div class="card-footer text-muted">
         
     </div>
