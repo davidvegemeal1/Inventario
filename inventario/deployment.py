@@ -2,6 +2,7 @@ import os
 from .settings import *
 from .settings import BASE_DIR
 
+SECRET_KEY = os.environ['SECRET']
 ALLOWED_HOSTS=[os.environ["WEBSITE_HOSTNAME"]]
 CSRF_TRUSTED_ORIGINS = ['https://'+os.environ["WEBSITE_HOSTNAME"]]
 DEBUG=False
@@ -29,10 +30,10 @@ database = os.getenv('AZURE_MYSQL_NAME')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'inventario',
-        'USER': 'davidvegemeal',
-        'PASSWORD':'grupod-4',
-        'HOST':'bd2020630307.mysql.database.azure.com',
+        'NAME': database,
+        'USER': user,
+        'PASSWORD':password,
+        'HOST':host,
         'PORT':'3306'
 
     }
