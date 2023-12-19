@@ -1,10 +1,11 @@
 import os
 from .settings import *
 from .settings import BASE_DIR
+
 SECRET_KEY = os.environ['SECRET']
-ALLOWED_HOSTS=[os.environ["WEBSITE_HOSTNAME"]]
-CSRF_TRUSTED_ORIGINS = ['https://'+os.environ["WEBSITE_HOSTNAME"]]
-DEBUG=False
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
+DEBUG = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -19,12 +20,8 @@ MIDDLEWARE = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL='/static/'
-STATICFILES_DIRS=(
-    os.path.join(BASE_DIR,'static'),
-)
-
 
 host = os.getenv('AZURE_MYSQL_HOST')
 user = os.getenv('AZURE_MYSQL_USER')
