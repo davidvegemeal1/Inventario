@@ -1,0 +1,80 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Inventario</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Herramienta de inventario y conteo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"> 
+                    <a href="/" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item"> 
+                  <a href="{% url 'somos' %}" class="nav-link">¿Quiénes sómos?</a>
+              </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"> 
+                  <a href="{% url 'principal' %}" class="nav-link">Tabla del conteo</a>
+                </li>
+                <li class="nav-item"> 
+                  <a href="{% url 'salir' %}" class="nav-link">Cerrar sesión</a>
+                </li>
+                {% else %}
+                <li class="nav-item"> 
+                    <a href="{% url 'iniciar' %}" class="nav-link">Iniciar sesión</a>
+                </li>
+                {% endif %}
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+      <div style="margin-left: 20px; margin-top: 20px; display: inline-block;">
+        <img class="left" src="{% static 'HIC.png' %}" alt="Escudo poli" width="100">
+    </div>
+    
+    <h1 class="text-center">{% block titulo %} {% endblock %}</h1>
+    
+
+
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+
+  </main>
+
+
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>

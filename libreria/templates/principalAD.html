@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block titulo %} Interfaz administrador {% endblock %}
+
+{% block content %}
+
+
+<div class="card">
+
+    <div class="card-header justify-content-between">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear' %}" role="button">Crear usuario</a>
+        <a name="" id="" class="btn btn-warning" href="{% url 'generar_pdf' %}?{{ request.GET.urlencode }}" role="button">Generar PDF</a>
+        <form action="{% url 'principal' %}" method="get">
+            <label for="year">Año:</label>
+            <input type="number" id="year" name="year" value="{{ request.GET.year }}">
+            
+            <label for="month">Mes:</label>
+            <input type="number" id="month" name="month" min="1" max="12">
+            
+            <label for="day">Día:</label>
+            <input type="number" id="day" name="day" min="1" max="31">
+            
+            <input type="submit" class="btn btn-dark"  value="Filtrar">
+            <a name="" id="" class="btn btn-secondary" href="{% url 'principal' %}" role="button">Regresar a tabla general</a>
+        </form>
+
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Escaneo</h4>
+            <table class="table">
+                {% if inventario %}
+                <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Id escaneo</th>
+                        <th scope="col"> Tipo de pan</th>
+                        <th scope="col">Panes contados</th>
+                        <th scope="col">Fecha de escaneo</th>
+                        <th scope="col">Inicio conteo</th>
+                        <th scope="col">Fin conteo </th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha de caducidad</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Matricula del trabajador</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for monitoreo_del_conteo in inventario %}
+                    <tr>
+                        <td>
+                            {% if monitoreo_del_conteo.nombre == 'Dona' %}
+                                <img src="{% static 'b076_dona.jpg' %}" alt="Dona" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Azucarado' %}
+                                <img src="{% static 'b076_azucarado.jpg' %}" alt="Azucarado" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Concha' %}
+                                <img src="{% static 'b076_concha.jpg' %}" alt="Concha" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Ombligo' %}
+                                <img src="{% static 'b076_ombligo.jpg' %}" alt="Ombligo" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Oreja' %}
+                                <img src="{% static 'b076_oreja.jpg' %}" alt="Oreja" width="75">
+
+                            {% endif %}</td>
+                        <td>{{ monitoreo_del_conteo.id }}</td>
+                        <td>{{ monitoreo_del_conteo.nombre }}</td>
+                        <td>{{ monitoreo_del_conteo.cantidad }}</td>
+                        <td>{{ monitoreo_del_conteo.fecha }}</td>
+                        <td>{{ monitoreo_del_conteo.hora_inicio }}</td>
+                        <td>{{ monitoreo_del_conteo.hora_fin }}</td>
+                        <td>{{ monitoreo_del_conteo.descripcion }}</td>
+                        <td>{{ monitoreo_del_conteo.fecha_caducidad }}</td>
+                        <td>{{ monitoreo_del_conteo.user }}</td>
+                        <td>{{ monitoreo_del_conteo.user.id }}</td>
+                        <td> 
+                            <div class="d-flex">
+                                <a name="" id="" class="btn btn-info mr-2" href="{% url 'editar' monitoreo_del_conteo.id %}" role="button">Editar</a>
+                                <form action="{% url 'delete_pan' monitoreo_del_conteo.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" onclick="confirmDelete(event)">Borrar</button>
+                                </form>
+                            </div>
+
+                            <script>
+                                function confirmDelete(event) {
+                                    event.preventDefault(); // Detiene el envío del formulario
+                                    if (confirm('¿Estás seguro de que deseas borrar este escaneo?')) {
+                                        const form = event.target.parentElement;
+                                        form.submit(); // Envía el formulario si se confirma
+                                    }
+                                }
+                            </script>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        No hay datos disponibles para el filtro seleccionado.
+                    </div>
+                    {% endif %}
+                </tbody>
+            </table>
+    </div>
+    <div class="card-footer text-muted">
+        
+    </div>
+</div>
+
+{% endblock %}

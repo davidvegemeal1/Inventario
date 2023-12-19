@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Crear Usuario {% endblock %}
+
+{% block content %}
+
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <form action="/crear/" method="POST" class="card card-body text-center">
+
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                {% csrf_token %}
+                
+
+                <div class="mb-3">
+                    <label for="username">Usuario:</label>
+                    <input type="text" name ="username" id="username" class="form-control" placeholder="Escribe el usuario" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="first_name">Nombre:</label>
+                    <input type="text" name ="first_name" id="first_name" class="form-control" placeholder="Escribe el  nombre" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="last_name">Apellidos:</label>
+                    <input type="text" name ="last_name" id="last_name" class="form-control" placeholder="Escribe los apellidos" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Correo:</label>
+                    <input type="text" name ="email" id="email" class="form-control" placeholder="Escribe el correo" required>
+
+
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="password1">Contraseña:</label>
+                    <input type="password" name ="password1" id="password1" class="form-control" placeholder="Escribe la contraseña" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="password2">Confirma tu contraseña:</label>
+                    <input type="password" name ="password2" id="password2" class="form-control" placeholder="Vuelve a escribir la contraseña" required>
+
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary mr-2" onclick="confirmCrear(event)">
+                        Registrar
+                    </button>
+            
+                    <a class="btn btn-danger" href="/principal/" style="align-self: flex-start;">
+                        Cancelar
+                    </a>
+                </div>
+
+                <script>
+                    function confirmCrear(event) {
+                        event.preventDefault(); // Detiene el envío del formulario
+                        const form = event.target.form;
+                        
+                        // Verifica si todos los campos obligatorios tienen datos
+                        const camposObligatorios = form.querySelectorAll('input[required]');
+                        let camposVacios = 0;
+                        camposObligatorios.forEach(function(campo) {
+                            if (campo.value.trim() === '') {
+                                camposVacios++;
+                            }
+                        });
+                
+                        if (camposVacios > 0) {
+                            alert('Por favor, completa todos los campos obligatorios.');
+                        } else {
+                            if (confirm('¿Estás seguro de que deseas registrar este usuario?')) {
+                                form.submit(); // Envía el formulario si se confirma
+                            }
+                        }
+                    }
+                </script>
+                
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

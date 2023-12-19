@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block titulo %} Interfaz del usuario {% endblock %}
+
+{% block content %}
+
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Escaneo</h4>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Id escaneo</th>
+                        <th scope="col"> Tipo de pan</th>
+                        <th scope="col">Panes contados</th>
+                        <th scope="col">Fecha de escaneo</th>
+                        <th scope="col">Inicio conteo</th>
+                        <th scope="col">Fin conteo </th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha de Caducidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    
+                    {% for monitoreo_del_conteo in inventario %}
+                    <tr>
+                        <td>
+                            {% if monitoreo_del_conteo.nombre == 'Dona' %}
+                                <img src="{% static 'b076_dona.jpg' %}" alt="Dona" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Azucarado' %}
+                                <img src="{% static 'b076_azucarado.jpg' %}" alt="Azucarado" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Concha' %}
+                                <img src="{% static 'b076_concha.jpg' %}" alt="Concha" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Ombligo' %}
+                                <img src="{% static 'b076_ombligo.jpg' %}" alt="Ombligo" width="75">
+                            {% elif monitoreo_del_conteo.nombre == 'Oreja' %}
+                                <img src="{% static 'b076_oreja.jpg' %}" alt="Oreja" width="75">
+
+                            {% endif %}</td>
+                        <td>{{ monitoreo_del_conteo.id }}</td>
+                        <td>{{ monitoreo_del_conteo.nombre }}</td>
+                        <td>{{ monitoreo_del_conteo.cantidad }}</td>
+                        <td>{{ monitoreo_del_conteo.fecha }}</td>
+                        <td>{{ monitoreo_del_conteo.hora_inicio }}</td>
+                        <td>{{ monitoreo_del_conteo.hora_fin }}</td>
+                        <td>{{ monitoreo_del_conteo.descripcion }}</td>
+                        <td>{{ monitoreo_del_conteo.fecha_caducidad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+    </div>
+    <div class="card-footer text-muted">
+        
+    </div>
+</div>
+
+{% endblock %}

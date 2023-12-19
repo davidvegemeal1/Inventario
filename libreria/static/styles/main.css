@@ -1,0 +1,15 @@
+.fondo {
+    background: url('/static/Pagina_Inicio.jpg');
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 115vh;  
+}
+
+.fondo2 {
+    background: url('/static/somos.jpg');
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 115vh;  
+}

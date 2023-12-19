@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar Registros {% endblock %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <form action=""  method="POST" class="card card-body text-center">
+
+                {% csrf_token %}
+                
+
+                <div class="mb-3">
+                    <label for="nombre">Tipo de pan:</label>
+                    <select name="nombre" id="nombre" class="form-control"  required>
+                        <option value="" selected disabled>Selecciona un nombre</option>
+                        <option value="Dona" {% if formulario.instance.nombre == "Dona" %} selected {% endif %}>Dona</option>
+                        <option value="Azucarado" {% if formulario.instance.nombre == "Azucarado" %} selected {% endif %}>Azucarado</option>
+                        <option value="Concha" {% if formulario.instance.nombre == "Concha" %} selected {% endif %}>Concha</option>
+                        <option value="Ombligo" {% if formulario.instance.nombre == "Ombligo" %} selected {% endif %}>Ombligo</option>
+                        <option value="Oreja" {% if formulario.instance.nombre == "Oreja" %} selected {% endif %}>Oreja</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cantidad"> Panes contados:</label>
+                    <input type="text" name ="cantidad" id="cantidad" class="form-control" value=" {{formulario.instance.cantidad}}" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha">Fecha de escaneo:</label>
+                    <input type="date" name ="fecha" id="fecha" class="form-control" value="{{ formulario.instance.fecha|date:'Y-m-d' }}" required>
+
+
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="hora_inicio">Inicio conteo:</label>
+                    <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" value="{{ formulario.instance.hora_inicio|date:'H:i' }}"  required>
+                </div>
+                
+
+                <div class="mb-3">
+                    <label for="hora_fin">Fin conteo:</label>
+                    <input type="time" name="hora_fin" id="hora_fin" class="form-control" value="{{ formulario.instance.hora_fin|time:'H:i' }}" required>
+                </div>
+                
+
+                <div class="mb-3">
+                    <label for="descripcion">Descripción del escaneo:</label>
+                    <input type="textfield" name ="descripcion" id="descripcion" class="form-control" value=" {{ formulario.instance.descripcion }}" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha_caducidad">Fecha de caducidad:</label>
+                    <input type="date" name ="fecha_caducidad" id="fecha_caducidad" class="form-control" value="{{ formulario.instance.fecha_caducidad|date:'Y-m-d' }}" required>
+
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="user">Usuario:</label>
+                    <select name="user" id="user" class="form-control" required>
+                        {% for usuario in usuarios %}
+                            <option value="{{ usuario.id }}" {% if formulario.instance.user.username == usuario.username %} selected {% endif %}>{{ usuario.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                
+
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary mr-2" onclick="confirmEditar(event)">
+                        Actualizar
+                    </button>
+
+                    <a class="btn btn-danger" href="/principal/" style="align-self: flex-start;">
+                        Cancelar
+                    </a>
+
+                    <script>
+                        function confirmEditar(event) {
+                            event.preventDefault(); // Detiene el envío del formulario
+                            if (confirm('¿Estás seguro de que deseas actualizar los datos del escaneo?')) {
+                                const form = event.target.form;
+                                form.submit(); // Envía el formulario si se confirma
+                            }
+                        }
+                    </script>
+                    
+                </div>
+            {% endblock %}
