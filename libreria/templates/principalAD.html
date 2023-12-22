@@ -12,7 +12,7 @@
         <a name="" id="" class="btn btn-warning" href="{% url 'generar_pdf' %}?{{ request.GET.urlencode }}" role="button">Generar PDF</a>
         <form action="{% url 'principal' %}" method="get">
             <label for="year">Año:</label>
-            <input type="number" id="year" name="year" value="{{ request.GET.year }}">
+            <input type="number" id="year" name="year" value="{{ request.GET.year }}" min="2000" max="2050">
             
             <label for="month">Mes:</label>
             <input type="number" id="month" name="month" min="1" max="12">
@@ -25,7 +25,8 @@
         </form>
     </div>
     
- 
+
+
     <div class="card-body">
         <h4 class="card-title">Escaneo</h4>
         <div class="table-responsive">

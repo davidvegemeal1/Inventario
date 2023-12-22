@@ -9,6 +9,12 @@
         <div class="col-md-4 offset-md-4 mt-5">
             <form action=""  method="POST" class="card card-body text-center">
 
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                 {% endif %}
+                 
                 {% csrf_token %}
                 
 
@@ -26,7 +32,7 @@
 
                 <div class="mb-3">
                     <label for="cantidad"> Panes contados:</label>
-                    <input type="text" name ="cantidad" id="cantidad" class="form-control" value=" {{formulario.instance.cantidad}}" required>
+                    <input type="text" name ="cantidad" id="cantidad" class="form-control" value=" {{formulario.instance.cantidad}}"  required>
 
 
                 </div>

@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 import hashlib
 import os
+from datetime import date
 
 # Create your views here.
 
@@ -88,19 +89,31 @@ def delete_pan (request, pan_id):
 @user_passes_test(lambda u: u.is_superuser)
 
 def editar(request, pan_id):
-    usuarios=User.objects.all()
-    inventario= get_object_or_404(monitoreo_del_conteo, pk=pan_id)
+    usuarios = User.objects.all()
+    inventario = get_object_or_404(monitoreo_del_conteo, pk=pan_id)
+
+    error = None  # Inicializa error como None al principio
+
     if request.method == 'POST':
         formulario = inventarioform(request.POST, instance=inventario)
+
+        # Llamar a is_valid para realizar la validación
         if formulario.is_valid():
-            formulario.save()
-            return redirect('principal')
+            # Validación adicional para la fecha de escaneo
+            fecha_escaneo = formulario.cleaned_data.get('fecha')
+            if fecha_escaneo and fecha_escaneo > date.today():
+                error = 'La fecha de escaneo no puede ser posterior al día actual.'
+            else:
+                formulario.save()
+                return redirect('principal')
+        else:
+            # Hay errores en el formulario, podrías asignarlos a la variable 'error'
+            error = 'Por favor, corrija los errores en el formulario.'
+
     else:
         formulario = inventarioform(instance=inventario)
-
-    return render(request, 'editar.html', {'formulario': formulario, 'usuarios': usuarios})
-
-
+    print(error)
+    return render(request, 'editar.html', {'formulario': formulario, 'usuarios': usuarios, 'error': error})
 
 @login_required
 def crear(request):
